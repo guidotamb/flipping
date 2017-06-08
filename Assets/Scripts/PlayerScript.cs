@@ -62,7 +62,6 @@ public class PlayerScript : NetworkBehaviour
 				if (hit.collider != null) {
 					if (hit.collider.gameObject.tag == "Circle") {
 						CmdCircleClicked (hit.collider.name);
-						Debug.Log ("Hit Circle: " + hit.collider.name);
 					}
 
 				}

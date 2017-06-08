@@ -161,9 +161,6 @@ public class GameScript : NetworkBehaviour
 					}
 				}
 			}
-			if (inGame) {
-
-			}
 		}
 	}
 
@@ -214,14 +211,16 @@ public class GameScript : NetworkBehaviour
 		return colors [i];
 	}
 		
+	[Server]
 	public void CheckWin() 
 	{
 		if (sameColor ()) {
-			finish ();
+			nextLevel ();
 		}
 	}
 
-	public void finish ()
+	[Server]
+	public void nextLevel ()
 	{
 //		flash ();
 		foreach (Circle o in circles) {
@@ -229,6 +228,18 @@ public class GameScript : NetworkBehaviour
 		}
 		circles = new List<Circle> ();
 		startGame ();
+	}
+
+	[Server]
+	public void finish ()
+	{
+		// flash ();
+		foreach (Circle o in circles) {
+			o.RpcDestroy ();
+		}
+		inGame = false;
+		// Show game over
+
 	}
 
 	private bool sameColor ()
@@ -240,5 +251,11 @@ public class GameScript : NetworkBehaviour
 			}
 		}
 		return true;
+	}
+
+	[Server]
+	public bool isInGame()
+	{
+		return inGame;
 	}
 }

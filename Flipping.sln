@@ -1,7 +1,7 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{824439FC-30C0-9D35-4972-9FEB84E0AFE8}") = "Flipping", "Assembly-CSharp.csproj", "{E0844D48-3136-FC71-AA95-1B5EAD2B6685}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flipping", "Assembly-CSharp.csproj", "{E0844D48-3136-FC71-AA95-1B5EAD2B6685}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

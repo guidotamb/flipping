@@ -6,39 +6,49 @@ using System.Collections;
 
 public class StartScene : MonoBehaviour
 {
+    public static StartScene singleton;
 
-	public Text username;
+    public GameObject menu;
+    public GameObject onePlayerMenu;
+    void Start()
+    {
+        singleton = this;
+        menu.GetComponent<Animator>().SetBool("Open", true);
+    }
 
-	private OverriddenNetworkDiscovery nd;
-	void Start ()
-	{
-		nd = GetComponent<OverriddenNetworkDiscovery> ();
-		nd.Initialize ();
-	}
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
 
-	void Update ()
-	{
-		if (Input.GetKeyDown (KeyCode.Escape)) {
-			Application.Quit ();
-		}
-	}
+    public void play()
+    {
+        menu.GetComponent<Animator>().SetBool("Open", false);
+        onePlayerMenu.GetComponent<Animator>().SetBool("Open", true);
+    }
 
-	public void play ()
-	{
-		//SceneManager.LoadScene ("ColorTap");
-	}
+    public void startGame(string difficulty)
+    {
+        PlayerPrefs.SetString("Difficulty", difficulty);
+        loadScene("OnePlayer");
+    }
 
-	public void host ()
-	{
-		PlayerPrefs.SetString ("UserName", username.text);
-		NetworkManager.singleton.StartHost ();
-		nd.StartAsServer ();
-	}
+    public void play2()
+    {
+        // loadScene("TwoPlayer");
+    }
 
-	public void joinGame ()
-	{	
-		PlayerPrefs.SetString ("UserName", username.text);
-		nd.StartAsClient ();
-	}
-		
+    public void loadScene(string sceneName)
+    {
+        StartCoroutine(ChangeScene(sceneName));
+    }
+    IEnumerator ChangeScene(string SceneName)
+    {
+        float fadeTime = GetComponent<FadingScenes>().BeginFade(1);
+        yield return new WaitForSeconds(fadeTime);
+        SceneManager.LoadScene(SceneName);
+    }
 }
